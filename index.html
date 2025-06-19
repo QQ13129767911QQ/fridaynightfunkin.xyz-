@@ -85,19 +85,20 @@
             -webkit-backdrop-filter: blur(20px);
             border-radius: 20px;
             margin: 30px 0;
-            padding: 30px;
+            padding: 0;
             box-shadow: 0 8px 40px rgba(0, 0, 0, 0.1);
             border: 1px solid rgba(255, 255, 255, 0.2);
+            overflow: hidden;
         }
 
         .game-container {
             position: relative;
             width: 100%;
             margin: 0 auto;
-            border-radius: 16px;
+            border-radius: 0;
             overflow: hidden;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-            max-width: 1000px;
+            box-shadow: none;
+            max-width: 100%;
         }
 
         .game-iframe {
@@ -106,6 +107,7 @@
             border: none;
             display: block;
             aspect-ratio: 16/9;
+            margin: 0;
         }
 
         h2 {
@@ -219,12 +221,14 @@
             }
 
             .game-section {
-                padding: 20px;
+                padding: 0;
                 margin: 20px 0;
+                border-radius: 15px;
             }
 
             .game-iframe {
                 height: 500px;
+                border-radius: 0;
             }
 
             h2 {
@@ -412,12 +416,21 @@
             // 响应式iframe高度调整
             function adjustIframeHeight() {
                 const gameContainer = document.querySelector('.game-container');
+                const gameSection = document.querySelector('.game-section');
                 const width = gameContainer.offsetWidth;
+                
                 // 根据16:9比例计算高度
-                const height = width * 9 / 16;
+                let height = width * 9 / 16;
+                
                 // 设置最小高度
                 const minHeight = 300;
-                iframe.style.height = Math.max(height, minHeight) + 'px';
+                const calculatedHeight = Math.max(height, minHeight);
+                
+                // 应用高度
+                iframe.style.height = calculatedHeight + 'px';
+                
+                // 确保game-section的高度与iframe匹配
+                gameSection.style.height = 'auto';
             }
             
             // 页面加载和窗口调整大小时调整iframe高度
